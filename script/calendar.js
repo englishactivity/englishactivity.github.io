@@ -132,8 +132,8 @@ function tirarDiasAnteriores(uid) {
     document.getElementById("notaDoMes").innerHTML = "Nota Do Mês: " + Math.round(nota);
 
     if(userCurrent != null){
-    let reference = "Students/" + uid + '/' + ano + '/' + mes +'/nota';
-    firebase.database().ref(reference).set({nota });
+        let reference = "Students/" + uid + '/' + ano + '/' + mes +'/nota';
+        firebase.database().ref(reference).set({nota });
     }
 }
 
@@ -290,7 +290,6 @@ function voltarMes(uid) {
 
     diaEscolhido = dia;
     aparecerRecorder();
-    salvarNomeUsuario();
 }
 
 /********************************************************
