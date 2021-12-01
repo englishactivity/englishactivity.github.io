@@ -1,0 +1,225 @@
+#nomeDia {
+  text-align: center;
+  font-size: 5vw;
+  border-style: groove;
+  border-color: #fad31c;
+  border-width: 5px;
+  background-color: #fad31c;
+  max-width: 500px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 0rem;
+}
+
+.clicavel:hover {
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.certo {
+  background-color: #05a32f;
+}
+
+.errado {
+  background-color: #e61920;
+}
+
+#horarios {
+  list-style: none;
+}
+
+#ddd {
+  width: 3em;
+}
+
+#telefone1 {
+  width: 6em;
+}
+
+#telefone2 {
+  width: 7em;
+}
+
+.hora {
+  text-align: center;
+  font-size: 3vw;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 3px;
+  color: #ffffff;
+  max-width: 500px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.horaLivre {
+  background-color: #05a32f;
+}
+
+.horaCheia {
+  background-color: #e61920;
+}
+
+.diasId {
+  border-style: solid;
+  border-left-style: none;
+  border-right-style: none;
+  margin-right: 0;
+  background-color: #111111;
+  text-align: center;
+  color: #ffffff;
+}
+
+.diasId:first-child {
+  border-left-style: solid;
+}
+
+.diasId:last-child {
+  border-right-style: solid;
+}
+
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+h1 {
+  text-align: center;
+  font-size: 5vw;
+}
+
+.dias {
+  width: 14.28%;
+  font-size: 4vw;
+  padding: 1vw;
+  color: #ffffff;
+  background-color: #111111;
+  border-width: 5px;
+  border-style: outset;
+  border-color: #111111;
+  text-align: center;
+}
+
+.agendaLivre {
+  border-color: #05a32f;
+  background-color: #05a32f;
+}
+
+.agendaCheia {
+  border-color: #e61920;
+  background-color: #e61920;
+}
+
+.respostaDada {
+  border-color: blue;
+  background-color: blue;
+}
+
+.agenda {
+  width: 100%;
+  position: relative;
+}
+
+#horariosDia {
+  width: 100%;
+  position: relative;
+}
+
+#calendario {
+  width: 100%;
+  max-width: 500px;
+  margin-top: 200px;
+  margin-left: 50%;
+  margin-right: 50%;
+}
+
+table {
+  margin: 0 auto;
+  width: 80%;
+}
+
+h2 {
+  font-size: 4vw;
+}
+
+.fa-arrow-left {
+  float: left;
+  margin-top: 5px;
+  width: auto;
+  height: 5px;
+}
+
+.fa-arrow-right {
+  float: right;
+  margin-top: 5px;
+  width: auto;
+  height: 5px;
+}
+
+#mes {
+  width: 85%;
+  max-height: 50px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 8px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+#nomeMes {
+  margin: 0 auto;
+  font-size: 5vw;
+}
+
+@media screen and (min-width: 800px) {
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .dias {
+    font-size: 1rem;
+  }
+
+  .hora {
+    font-size: 1.2rem;
+  }
+
+  #nomeDia {
+    font-size: 1.3rem;
+  }
+
+  #nomeMes {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  h2 {
+    font-size: 1rem;
+  }
+
+  #nomeMes {
+    font-size: 1rem;
+  }
+
+  .dias {
+    font-size: 0.6rem;
+  }
+
+  .hora {
+    font-size: 0.8rem;
+  }
+
+  #nomeDia {
+    font-size: 0.8rem;
+  }
+
+  h1 {
+    font-size: 1rem;
+  }
+}

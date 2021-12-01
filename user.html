@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>replit</title>
+    <link href="style/style.css" rel="stylesheet" type="text/css" />
+    <link href="style/containersStyle.css" rel="stylesheet" type="text/css" />
+    <link href="style/calendar.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/ico" href="https://markjivko.com/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    
+    <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+    <script src="https://markjivko.com/dist/recorder.js"></script>
+      
+    <script src="script/firebase.js"></script>
+    <script src="script/students.js"></script>
+    <script src="script/model.js"></script>
+    <script src="script/recorder.js"></script>
+    <script src="script/calendar.js"></script>
+    <script src="script/script.js"></script>
+    
+
+    <div id="menu">
+      <button onclick="logout()" id="logout">Logout <i class="fa fa-sign-out"></i></button>
+    </div>
+
+    <div id="studentList" class="hide"> </div>
+    <h2 id="currentUser"></h2>
+    <h2 id="notaDoMes"></h2>
+
+    <div id="calendario">
+      <div id="mes">
+          <i class="fa fa-arrow-left clicavel fechado" onclick="voltarMes()"></i>
+          <i class="fa fa-arrow-right clicavel" onclick="proximoMes()"></i>
+          <h2 id="nomeMes"></h2>
+      </div>
+      <table>
+          <tr>
+              <th class="diasId">D</th>
+              <th class="diasId">S</th>
+              <th class="diasId">T</th>
+              <th class="diasId">Q</th>
+              <th class="diasId">Q</th>
+              <th class="diasId">S</th>
+              <th class="diasId">S</th>
+          </tr>
+          <tr>
+              <th id="11" class="dias"></th>
+              <th id="22" class="dias"></th>
+              <th id="33" class="dias"></th>
+              <th id="44" class="dias"></th>
+              <th id="55" class="dias"></th>
+              <th id="66" class="dias"></th>
+              <th id="77" class="dias"></th>
+          </tr>
+          <tr>
+              <th id="18" class="dias"></th>
+              <th id="29" class="dias"></th>
+              <th id="310" class="dias"></th>
+              <th id="411" class="dias"></th>
+              <th id="512" class="dias"></th>
+              <th id="613" class="dias"></th>
+              <th id="714" class="dias"></th>
+          </tr>
+          <tr>
+              <th id="115" class="dias"></th>
+              <th id="216" class="dias"></th>
+              <th id="317" class="dias"></th>
+              <th id="418" class="dias"></th>
+              <th id="519" class="dias"></th>
+              <th id="620" class="dias"></th>
+              <th id="721" class="dias"></th>
+          </tr>
+          <tr>
+              <th id="122" class="dias"></th>
+              <th id="223" class="dias"></th>
+              <th id="324" class="dias"></th>
+              <th id="425" class="dias"></th>
+              <th id="526" class="dias"></th>
+              <th id="627" class="dias"></th>
+              <th id="728" class="dias"></th>
+          </tr>
+          <tr>
+              <th id="129" class="dias"></th>
+              <th id="230" class="dias"></th>
+              <th id="331" class="dias"></th>
+              <th id="432" class="dias"></th>
+              <th id="533" class="dias"></th>
+              <th id="634" class="dias"></th>
+              <th id="735" class="dias"></th>
+          </tr>
+          <tr>
+              <th id="136" class="dias"></th>
+              <th id="237" class="dias"></th>
+              <th id="338" class="dias"></th>
+              <th id="439" class="dias"></th>
+              <th id="540" class="dias"></th>
+              <th id="641" class="dias"></th>
+              <th id="742" class="dias"></th>
+          </tr>
+      </table>
+  </div>
+
+    <div class="holder hide" id="holder">
+      <i class="fa fa-arrow-left fa-2x clicavel fechado" id="voltar" onclick="fecharRecorder()"></i>
+      <div data-role="controls" id="recordButton">
+        <button>Record</button>
+      </div>
+      <div data-role="recordings" id="recordingsAudios"></div>
+      <div> 
+        <p class="texto">Seu Audio:</p>
+        <audio controls id="savedAudio" src=""> </audio>
+
+        <p class="texto">Audio do Professor:</p>
+        <audio controls id="teacherSavedAudio" src=""> </audio>
+    </div>
+
+      <button onclick="saveRecordedAudio()" id="saveButton">SAVE AUDIO</button>
+    </div>
+  </body>
+</html>

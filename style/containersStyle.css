@@ -1,0 +1,71 @@
+.hide {
+  display: none;
+}
+
+.texto {
+  color: #fff;
+  margin-left: 20px;
+}
+
+#currentUser {
+  position: fixed;
+  top: 54px;
+  color: blue;
+}
+
+#notaDoMes {
+  position: fixed;
+  top: 95px;
+}
+
+#studentList {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  background-color: #000;
+  overflow: scroll;
+  position: fixed;
+  top: 54px;
+  width: 100%;
+  height: 100px;
+}
+
+.newAudio {
+  background-color: crimson;
+}
+
+.respostaDada {
+  background-color: #345eeb;
+}
+
+#voltar {
+  color: yellow;
+  margin-left: 1rem;
+}
+
+#saveButton {
+  margin-left: 40%;
+}
+
+#menu {
+  overflow: hidden;
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+#logout {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: 50%;
+}
+
+#recordingsAudios {
+  margin-top: 3rem;
+}
