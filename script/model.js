@@ -83,13 +83,14 @@ function getStudentsInfo(){
 
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
-      if(user.uid == "TyGwwULrWeYFuFmlYSSvdAbO4am1"){
+      if(user.uid == "vOdPdTtvKah6PoMS8ymFQQuO0iw2"){
         document.getElementById("calendario").classList.add("hide");
         document.getElementById("studentList").classList.remove("hide");
         getStudentsInfo();
       }else{
         userCurrent = user;
         colocarDiaOcupado(user.uid);
+        salvarNomeUsuario();
         document.getElementById('currentUser').innerHTML = "Bem vindo " + user.displayName;
       }
     }
