@@ -99,26 +99,11 @@ function checarBissexto() {
  * DESCRIPTION: tira dias anteriores do mes atual
  ********************************************************/
 function tirarDiasAnteriores(uid) {
-//    var id = "19";
     var dias = 1;
-//    var id2 = historico[0].primeiraSemana();
     var semana = historico[0].primeiraSemana();
-//    var diaClick = "diaClick(9)"; 
     var diasPassados = 0;
     for (dias; dias <= diaAtual[1]; dias++) {
-/*        id = "19";
-        id = id.replace("1", semana)
-        id = id.replace("9", id2);
-        diaClick = "diaClick(9)";
-        diaClick = diaClick.replace("9", dias);
-        document.getElementById(id).innerHTML = dias;
-        document.getElementById(id).classList.remove("agendaLivre");
-        document.getElementById(id).classList.remove("clicavel");
-        document.getElementById(id).classList.add("agendaCheia");
-        document.getElementById(id).removeAttribute("onclick");
-*/
         ++semana;
-//        ++id2;
         if (semana> 7) {
             semana = 1;
         }
@@ -298,31 +283,5 @@ function voltarMes(uid) {
  * variavel agMes.
  ********************************************************/
  function diasOcupado(uid) {
-/*     $(document).ready(function () {
-        $.ajax({
-            type: "POST",
-            url: 'http://lvh.me/src/agendar/diasOcupado.php',
-            data: {
-                ano: ano,
-                mes: mes,
-                consultar: ""
-            },
-            success: function (data) {
-                try {
-                    var info = JSON.parse(data);
-                } catch (e) {
-                    window.alert("Erro no código do site, avise a empresa");
-                }
-
-                for (var i = 0; i < info.length; i++) {
-                    var dia = info[i].dia;
-                    diaOcupado[dia] = info[i].cheio;
-                }
-                criarCalendario();
-
-            }
-        });
-    });*/
-    //todo: Pegar os dias do mês mês
     colocarDiaOcupado(uid);
 }
