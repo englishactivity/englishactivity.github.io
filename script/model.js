@@ -34,12 +34,14 @@ function colocarDiaOcupado(id){
   let reference = "Students/" + id + '/' + ano + '/' + mes;
   firebase.database().ref(reference).once('value', (snapshot) => {
     snapshot.forEach(function (childSnapshot) {
-      if(childSnapshot.val().review){
+      let review = childSnapshot.val().review;
+      if(review === true){
         diaOcupado[childSnapshot.val().dia] = 2;  
-      }else{
+        quantidadeDiasOcupados += 1;
+      }else if (review === false){
         diaOcupado[childSnapshot.val().dia] = 1;
+        quantidadeDiasOcupados += 1;
       }
-      quantidadeDiasOcupados += 1;
     });
     criarCalendario(id);
 });
@@ -60,12 +62,12 @@ function createStudentList(){
 }
 
 function createStudentCalendar(id){
+  apagarCalendario();
   document.getElementById("calendario").classList.remove("hide");
   diaOcupado = {};
   quantidadeDiasOcupados = 0;
   currentStudent = studentsList[id];
   console.log(currentStudent);
-  apagarCalendario();
   colocarDiaOcupado(id);
 }
 
@@ -90,7 +92,7 @@ firebase.auth().onAuthStateChanged(user => {
       }else{
         userCurrent = user;
         colocarDiaOcupado(user.uid);
-        salvarNomeUsuario();
+        atualizarDadosUsuario();
         document.getElementById('currentUser').innerHTML = "Bem vindo " + user.displayName;
       }
     }
@@ -172,12 +174,24 @@ function logout(){
   });
 }
 
+function salvarIdUsuario(){
+  if(userCurrent != null){
+    let reference = "Students/" + userCurrent.uid + '/info/id' ;
+    firebase.database().ref(reference).set(userCurrent.uid);
+  }
+}
+
 function salvarNomeUsuario(){
   if(userCurrent != null){
-  let reference = "Students/" + userCurrent.uid + '/info' ;
-  firebase.database().ref(reference).set({
-    "name" : userCurrent.displayName,
-    "id" : userCurrent.uid
-  });
+    let reference = "Students/" + userCurrent.uid + '/info/name' ;
+    firebase.database().ref(reference).set(userCurrent.displayName);
+  }
 }
+
+function atualizarDadosUsuario(){
+  if(userCurrent != null){
+    salvarIdUsuario();
+    salvarNomeUsuario();
+  }
 }
+
