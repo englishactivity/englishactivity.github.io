@@ -29,17 +29,18 @@
     
 
     <div id="menu">
-      <button onclick="logout()" id="logout">Logout <i class="fa fa-sign-out"></i></button>
+      <button onclick="logout()" id="logout" class="clicavel">Logout <i class="fa fa-sign-out clicavel"></i></button>
     </div>
 
     <div id="studentList" class="hide"> </div>
     <h2 id="currentUser"></h2>
     <h2 id="notaDoMes"></h2>
-
+    <div class="body">
+    
     <div id="calendario">
       <div id="mes">
-          <i class="fa fa-arrow-left clicavel fechado" onclick="voltarMes()"></i>
-          <i class="fa fa-arrow-right clicavel" onclick="proximoMes()"></i>
+         <!-- <i class="fa fa-arrow-left clicavel fechado" onclick="voltarMes()"></i>
+          <i class="fa fa-arrow-right clicavel" onclick="proximoMes()"></i>-->
           <h2 id="nomeMes"></h2>
       </div>
       <table>
@@ -109,6 +110,7 @@
       </table>
   </div>
 
+
     <div class="holder hide" id="holder">
       <i class="fa fa-arrow-left fa-2x clicavel fechado" id="voltar" onclick="fecharRecorder()"></i>
       <div data-role="controls" id="recordButton">
@@ -122,8 +124,8 @@
         <p class="texto">Audio do Professor:</p>
         <audio controls id="teacherSavedAudio" src=""> </audio>
     </div>
-
-      <button onclick="saveRecordedAudio()" id="saveButton">SAVE AUDIO</button>
+    <button onclick="saveRecordedAudio()" id="saveButton clicavel">SAVE AUDIO</button>
     </div>
+  </div>
   </body>
 </html>
