@@ -228,11 +228,12 @@ function apagarCalendario() {
         apagar[id].classList.remove("agendaLivre");
         apagar[id].classList.remove("agendaCheia");
         apagar[id].classList.remove("clicavel");
+        apagar[id].classList.remove("respostaDada");
         
     } 
 }
 
-function proximoMes(uid) {
+/*function proximoMes(uid) {
     apagarCalendario();
     ++mes;
     if (mes > 11) {
@@ -242,11 +243,11 @@ function proximoMes(uid) {
 
     historico[historico.length] = new HistoricoMes(mes, primeiroDiaSemanaMes, false);
    // horariosAgendados();
-   diasOcupado(uid);
+    diasOcupado(uid);
     document.getElementById("notaDoMes").classList.add('hide');
-}
+}*/
 
-function voltarMes(uid) {
+/*function voltarMes(uid) {
     if (historico[historico.length - 1].ePrimeiro() != true) {
         historico.pop();
         apagarCalendario();
@@ -263,7 +264,7 @@ function voltarMes(uid) {
         document.getElementById("notaDoMes").classList.remove('hide');
     }
      
-}
+}*/
 
 /***********************************************
  * FUNCTION: diaClick
