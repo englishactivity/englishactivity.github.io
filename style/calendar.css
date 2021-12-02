@@ -28,42 +28,6 @@ ul {
   background-color: #e61920;
 }
 
-#horarios {
-  list-style: none;
-}
-
-#ddd {
-  width: 3em;
-}
-
-#telefone1 {
-  width: 6em;
-}
-
-#telefone2 {
-  width: 7em;
-}
-
-.hora {
-  text-align: center;
-  font-size: 3vw;
-  border-style: solid;
-  border-color: #000000;
-  border-width: 3px;
-  color: #ffffff;
-  max-width: 500px;
-  margin-left: 50%;
-  transform: translateX(-50%);
-}
-
-.horaLivre {
-  background-color: #05a32f;
-}
-
-.horaCheia {
-  background-color: #e61920;
-}
-
 .diasId {
   border-style: solid;
   border-left-style: none;
@@ -74,13 +38,13 @@ ul {
   color: #ffffff;
 }
 
-.diasId:first-child {
+/*.diasId:first-child {
   border-left-style: solid;
 }
 
 .diasId:last-child {
   border-right-style: solid;
-}
+}*/
 
 a {
   text-decoration: none;
@@ -93,8 +57,8 @@ h1 {
 }
 
 .dias {
-  width: 14.28%;
-  font-size: 4vw;
+  width: 20%;
+  font-size: 4rem;
   padding: 1vw;
   color: #ffffff;
   background-color: #111111;
@@ -119,20 +83,12 @@ h1 {
   background-color: blue;
 }
 
-.agenda {
-  width: 100%;
-  position: relative;
-}
-
-#horariosDia {
-  width: 100%;
-  position: relative;
-}
-
 #calendario {
-  width: 100%;
-  max-width: 500px;
-  margin-top: 200px;
+  border-style: groove;
+  background-color: #000;
+  width: 90%;
+  /*max-width: 500px;*/
+  margin-top: 10px;
   margin-left: 50%;
   margin-right: 50%;
 }
@@ -143,7 +99,7 @@ table {
 }
 
 h2 {
-  font-size: 4vw;
+  font-size: 2rem;
 }
 
 .fa-arrow-left {
@@ -161,65 +117,46 @@ h2 {
 }
 
 #mes {
-  width: 85%;
-  max-height: 50px;
+  width: 100%;
+  max-height: 70px;
+  background-color: #111111;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 8px;
   overflow-x: hidden;
   overflow-y: hidden;
 }
 
 #nomeMes {
   margin: 0 auto;
-  font-size: 5vw;
+  color: #ffffff;
+  font-size: 2rem;
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (max-width: 800px) {
   h2 {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 
   .dias {
-    font-size: 1rem;
-  }
-
-  .hora {
-    font-size: 1.2rem;
-  }
-
-  #nomeDia {
-    font-size: 1.3rem;
+    font-size: 3.4rem;
   }
 
   #nomeMes {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 }
 
 @media screen and (max-width: 500px) {
   h2 {
-    font-size: 1rem;
-  }
-
-  #nomeMes {
-    font-size: 1rem;
+    font-size: 2rem;
   }
 
   .dias {
-    font-size: 0.6rem;
+    font-size: 2.5rem;
   }
 
-  .hora {
-    font-size: 0.8rem;
-  }
-
-  #nomeDia {
-    font-size: 0.8rem;
-  }
-
-  h1 {
-    font-size: 1rem;
+  #nomeMes {
+    font-size: 2rem;
   }
 }
