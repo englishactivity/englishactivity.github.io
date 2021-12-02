@@ -27,6 +27,7 @@ var storage = firebase.storage();
 
 function userNotLogged(){
     console.log("User not logged");
+    window.location.replace("englishactivity.github.io");
 }
 var storage = firebase.storage();
 
