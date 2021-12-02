@@ -1,3 +1,8 @@
+body {
+  width: 100%;
+  margin: 0;
+}
+
 .hide {
   display: none;
 }
@@ -8,23 +13,27 @@
 }
 
 #currentUser {
-  position: fixed;
-  top: 54px;
+  margin-top: 80px;
+  text-align: center;
   color: blue;
 }
 
 #notaDoMes {
-  position: fixed;
-  top: 95px;
+  text-align: center;
+}
+
+.student {
+  padding: 3px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 2rem;
+  margin-left: 5px;
 }
 
 #studentList {
-  margin-left: 1rem;
-  margin-right: 1rem;
   background-color: #000;
   overflow: scroll;
-  position: fixed;
-  top: 54px;
+  margin-top: 90px;
   width: 100%;
   height: 100px;
 }
@@ -47,10 +56,11 @@
 }
 
 #menu {
-  overflow: hidden;
   background-color: #333;
+  display: block;
   position: fixed;
   top: 0;
+  z-index: 10;
   width: 100%;
 }
 
@@ -58,13 +68,27 @@
   background-color: #4caf50;
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 3px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 2rem;
   margin-left: 50%;
   margin-right: 50%;
+}
+
+#saveButton {
+  background-color: blue;
+  color: white;
+  padding: 3px;
+  text-align: center;
+  text-decoration: none;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  font-size: 2rem;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
 }
 
 #recordingsAudios {
