@@ -1,9 +1,7 @@
-body {
-  position: absolute;
+.body {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
-  display: flex;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
@@ -16,6 +14,7 @@ body {
   width: 100%;
   margin: 0;
 }
+
 .holder {
   margin-top: 150px;
   background-color: #4c474c;
