@@ -1,4 +1,3 @@
-
 var horaEscolhida = 0;
 var diaEscolhido = 0;
 var semanaEscolhida = 0;
@@ -13,27 +12,23 @@ var diaAtual = [diaSemana, dia];
 var diaOcupado = {};
 var quantidadeDiasOcupados = 0;
 var studentsList ={};
-var currentStudent = new Student("Beatriz", "ckmfNnhYEkSPTxG3K8UbdhN4Aci1", true);
+var currentStudent = null;
 
-var userCurrent = firebase.auth().currentUser;
+var userCurrent;
 var storage = firebase.storage();
+var databaseRef = firebase.database();
 
-/*function saveAudioFromFile(){
-    var files = document.getElementById("upload").files[0];
-    document.getElementById("audio").load();
-    var storageRef = firebase.storage().ref().child('audio/' + files.name);
-    storageRef.put(files);
-}*/
-
-function userNotLogged(){
-    console.log("User not logged");
-    window.location.replace("englishactivity.github.io");
+function hideTag(id){
+  document.getElementById(id).classList.add('hide');
 }
-var storage = firebase.storage();
+
+function appearTag(id){
+  document.getElementById(id).classList.remove('hide'); 
+}
 
 function colocarDiaOcupado(id){
   let reference = "Students/" + id + '/' + ano + '/' + mes;
-  firebase.database().ref(reference).once('value', (snapshot) => {
+  databaseRef.ref(reference).once('value', (snapshot) => {
     snapshot.forEach(function (childSnapshot) {
       let review = childSnapshot.val().review;
       if(review === true){
@@ -47,6 +42,33 @@ function colocarDiaOcupado(id){
     criarCalendario(id);
 });
 }
+
+/***********************************************************
+ * checkStudentHasTeacher
+ * Está função checa se o estudante já possui o id do professor.
+ * caso o estudant não tenha o id do professor, 
+ * a função irá chamar a função chooseTeacher
+ ***********************************************************/
+function checkStudentHasTeacher(id){
+  let reference = "StudentsInfo/" + id + '/info';
+  databaseRef.ref(reference).once('value', (snapshot) => {
+    let teacherId = snapshot.val().teacherId;
+    if(teacherId == undefined){
+      chooseTeacher();
+    }
+  });
+}
+
+function chooseTeacher(){
+  appearTag('chooseTeacher');
+}
+
+/*function saveAudioFromFile(){
+    var files = document.getElementById("upload").files[0];
+    document.getElementById("audio").load();
+    var storageRef = firebase.storage().ref().child('audio/' + files.name);
+    storageRef.put(files);
+}*/
 
 function createStudentList(){
   let list = "";
@@ -68,31 +90,33 @@ function createStudentCalendar(id){
   diaOcupado = {};
   quantidadeDiasOcupados = 0;
   currentStudent = studentsList[id];
-  console.log(currentStudent);
   colocarDiaOcupado(id);
 }
 
 function getStudentsInfo(){
-  let reference = "Students/";
-  firebase.database().ref(reference).once('value', (snapshot) => {
+  let reference = "StudentsInfo/";
+  databaseRef.ref(reference).once('value', (snapshot) => {
     snapshot.forEach(function (childSnapshot) {
       let info = childSnapshot.val().info;
-      studentsList[info.id] = new Student(info.name, info.id, info.newAudio);
+
+      if(info.teacherId === teacherCurrent.uid){
+        studentsList[info.id] = new Student(info.name, info.id, info.newAudio);
+      }
     });
-    console.log(studentsList);
     createStudentList();
   });
 }
 
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
-      if(user.uid == "vOdPdTtvKah6PoMS8ymFQQuO0iw2"){
+      if(user.uid == "vOdPdTtvKah6PoMS8ymFQQuO0iw2" || user.uid == 'Q2PSldgC67YjOR20BhprT2yYf8H3'){
+        teacherCurrent = user;
         document.getElementById("calendario").classList.add("hide");
         document.getElementById("studentList").classList.remove("hide");
         getStudentsInfo();
       }else{
         userCurrent = user;
-        colocarDiaOcupado(user.uid);
+        colocarDiaOcupado(userCurrent.uid);
         atualizarDadosUsuario();
         document.getElementById('currentUser').innerHTML = "Bem vindo " + user.displayName;
       }
@@ -103,51 +127,9 @@ firebase.auth().onAuthStateChanged(user => {
 })
 
 
-function checarResposta(d){
-  diaEscolhido = d;
-  aparecerRecorder();
-  let reference = "";
-  if(userCurrent != null){
-    document.getElementById("recordButton").classList.add("hide");
-    reference = "Students/" + userCurrent.uid + '/' + ano + '/' + mes + '/' + d;
-  }else{
-    reference = "Students/" + currentStudent.id + '/' + ano + '/' + mes + '/' + d;
-  }
-  //let reference = "audio/Sun, 28 Nov 2021 23:24:05 GMT";
-  console.log(reference);
-  firebase.storage().ref(reference).getDownloadURL().then(function(url) {
-    var xhr = new XMLHttpRequest();
-    xhr.responseType = 'blob';
-    xhr.onload = function(event) {
-      var blob = xhr.response;
-    };
-  
-    let audio = document.getElementById('savedAudio');
-    audio.src = url;
-  }).catch(function(error) {
-    // Handle any errors
-  });
-
-  reference = reference + 'r';
-  
-  firebase.storage().ref(reference).getDownloadURL().then(function(url) {
-    var xhr = new XMLHttpRequest();
-    xhr.responseType = 'blob';
-    xhr.onload = function(event) {
-      var blob = xhr.response;
-    };
-  
-    let audio = document.getElementById('teacherSavedAudio');
-    audio.src = url;
-  }).catch(function(error) {
-    // Handle any errors
-  });
-  
-}
-
 function checkIfAllAudiosGotAnswered(id){
   let reference = "Students/" + id + '/' + ano + '/' + mes;
-  firebase.database().ref(reference).once('value', (snapshot) => {
+  databaseRef.ref(reference).once('value', (snapshot) => {
     let answerEverything = true;
     snapshot.forEach(function (childSnapshot) {
       if(childSnapshot.val().review == false){
@@ -156,14 +138,34 @@ function checkIfAllAudiosGotAnswered(id){
       }
     });
     if(answerEverything){
-      let reference = "Students/" + id + '/info/newAudio';
+      let reference = "StudentsInfo/" + id + '/info/newAudio';
       firebase.database().ref(reference).set(false);
     }
 });
 }
 
+function getStudentText(id, day){
+  let reference = "Students/" + id + '/' +  ano + '/' + mes + '/' + day;
+  databaseRef.ref(reference).once('value', (snapshot) => {
+    let text = snapshot.val().studentText;
+    if(text != undefined){
+      document.getElementById('studentText').innerHTML = snapshot.val().studentText;
+    }
+  });
+}
+
+function getTeacherText(id, day){
+  let reference = "Students/" + id + '/' +  ano + '/' + mes + '/' + day;
+  databaseRef.ref(reference).once('value', (snapshot) => {
+    let text = snapshot.val().teacherText;
+    if(text != undefined){
+      document.getElementById('teacherText').innerHTML = snapshot.val().teacherText;
+    }
+  });
+}
+
 function studentHasNewAudio(id){
-  let reference = "Students/" + id + '/info/newAudio';
+  let reference = "StudentsInfo/" + id + '/info/newAudio';
   firebase.database().ref(reference).set(true);
 }
 
@@ -175,24 +177,36 @@ function logout(){
   });
 }
 
-function salvarIdUsuario(){
-  if(userCurrent != null){
-    let reference = "Students/" + userCurrent.uid + '/info/id' ;
-    firebase.database().ref(reference).set(userCurrent.uid);
-  }
+function salvarIdUsuario(id){
+  let reference = "StudentsInfo/" + id + '/info/id' ;
+  firebase.database().ref(reference).set(userCurrent.uid);
 }
 
-function salvarNomeUsuario(){
-  if(userCurrent != null){
-    let reference = "Students/" + userCurrent.uid + '/info/name' ;
-    firebase.database().ref(reference).set(userCurrent.displayName);
-  }
+function salvarNomeUsuario(id){
+  let reference = "StudentsInfo/" + id + '/info/name' ;
+  firebase.database().ref(reference).set(userCurrent.displayName);
+}
+
+function salvarTeacherId(id){
+  let reference = "StudentsInfo/" + userCurrent.uid + '/info/teacherId' ;
+  firebase.database().ref(reference).set(id);
+  hideTag("chooseTeacher");
+}
+
+function checkStudentSavedData(id){
+  let reference = "StudentsInfo/" + id + '/info';
+  databaseRef.ref(reference).once('value', (snapshot) => {
+    let studentId = snapshot.val().id;
+    if(studentId == undefined){
+      salvarIdUsuario(userCurrent.uid);
+      salvarNomeUsuario(userCurrent.uid);
+    }
+  });
 }
 
 function atualizarDadosUsuario(){
   if(userCurrent != null){
-    salvarIdUsuario();
-    salvarNomeUsuario();
+    checkStudentSavedData(userCurrent.uid);
+    checkStudentHasTeacher(userCurrent.uid);
   }
 }
-
