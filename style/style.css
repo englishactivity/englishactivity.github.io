@@ -16,8 +16,9 @@
 }
 
 .holder {
-  margin-top: 150px;
+  max-width: 350px;
   background-color: #4c474c;
+  padding: 5px;
   background-image: -webkit-gradient(
     linear,
     left bottom,
