@@ -68,7 +68,51 @@ var diasMaxMes = [
     30,
     31
 ];
+
+  function checarResposta(d){
+    diaEscolhido = d;
+    aparecerRecorder();
+    let reference = "";
+    if(userCurrent != null){
+      hideTag('recordButton');
+      hideTag('getStudentText');
+      appearTag('teacherText');
+      appearTag('studentText');
+      reference = "Students/" + userCurrent.uid + '/' + ano + '/' + mes + '/' + d;
+      getTeacherText(userCurrent.uid,d);
+      getStudentText(userCurrent.uid,d);
+    }else{
+      reference = "Students/" + currentStudent.id + '/' + ano + '/' + mes + '/' + d;
+    }
+    firebase.storage().ref(reference).getDownloadURL().then(function(url) {
+      var xhr = new XMLHttpRequest();
+      xhr.responseType = 'blob';
+      xhr.onload = function(event) {
+        var blob = xhr.response;
+      };
+
+      let audio = document.getElementById('savedAudio');
+      audio.src = url;
+    }).catch(function(error) {
+      // Handle any errors
+    });
+  
+    reference = reference + 'r';
     
+    firebase.storage().ref(reference).getDownloadURL().then(function(url) {
+      var xhr = new XMLHttpRequest();
+      xhr.responseType = 'blob';
+      xhr.onload = function(event) {
+        var blob = xhr.response;
+      };
+    
+      let audio = document.getElementById('teacherSavedAudio');
+      audio.src = url;
+    }).catch(function(error) {
+      // Handle any errors
+    });
+    
+  }
 
 /********************************************************
  * FUNCTION: colocarMes
@@ -190,6 +234,8 @@ function desenharCalendario() {
             primeiroDiaSemanaMes = 1;
         }
     }
+
+    appearTag('calendario');
 }
 
 /********************************************************
