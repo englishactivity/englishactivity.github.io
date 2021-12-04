@@ -7,12 +7,13 @@
     <link href="style/style.css" rel="stylesheet" type="text/css" />
     <link href="style/containersStyle.css" rel="stylesheet" type="text/css" />
     <link href="style/calendar.css" rel="stylesheet" type="text/css" />
+    <link href="style/text.css" rel="stylesheet" type="text/css" />
+    <link href="style/button.css" rel="stylesheet" type="text/css" />
     <link rel="icon" type="image/ico" href="flag.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
     
-    <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
@@ -25,11 +26,18 @@
     <script src="script/model.js"></script>
     <script src="script/recorder.js"></script>
     <script src="script/calendar.js"></script>
-    <script src="script/script.js"></script>
     
 
     <div id="menu">
-      <button onclick="logout()" id="logout" class="clicavel">Logout <i class="fa fa-sign-out clicavel"></i></button>
+      <button onclick="logout()" id="logout" class="clicavel">Logout
+         <i class="fa fa-sign-out clicavel"></i>
+        </button>
+    </div>
+
+    <div id="chooseTeacher" class="popup hide">
+      <h2 class="title">Escolha o seu atual professor(a) ao clicar em seu nome</h2>
+      <button class="teacherButton clicavel" onclick="salvarTeacherId('vOdPdTtvKah6PoMS8ymFQQuO0iw2')">Everton Alves</button>
+      <button class="teacherButton clicavel" onclick="salvarTeacherId('Q2PSldgC67YjOR20BhprT2yYf8H3')">Wêmilly</button>
     </div>
 
     <div id="studentList" class="hide"> </div>
@@ -37,7 +45,7 @@
     <h2 id="notaDoMes"></h2>
     <div class="body">
     
-    <div id="calendario">
+    <div id="calendario" class="hide">
       <div id="mes">
          <!-- <i class="fa fa-arrow-left clicavel fechado" onclick="voltarMes()"></i>
           <i class="fa fa-arrow-right clicavel" onclick="proximoMes()"></i>-->
@@ -120,9 +128,14 @@
       <div> 
         <p class="texto">Seu Audio:</p>
         <audio controls id="savedAudio" src=""> </audio>
-
+        <p class="texto">Escreva sua frase:</p>
+        <textarea id="getStudentText" class="getText"></textarea>
+        <p id="studentText" class="frase"></p>
         <p class="texto">Audio do Professor:</p>
         <audio controls id="teacherSavedAudio" src=""> </audio>
+        <p class="texto">Frase do Professor:</p>
+        <textarea id="getTeacherText" class="getText"></textarea>
+        <p id="teacherText" class="frase"></p>
     </div>
     <button onclick="saveRecordedAudio()" id="saveButton" class="clicavel">SAVE AUDIO</button>
     </div>
