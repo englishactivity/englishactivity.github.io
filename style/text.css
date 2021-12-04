@@ -1,0 +1,38 @@
+.frase {
+  color: #fff;
+  margin-left: 5px;
+  margin-right: 5px;
+  text-align: justify;
+  font-family: Arial, Helvetica, sans-serif;
+  word-wrap: break-word;
+}
+
+.texto {
+  color: #fff;
+  margin-left: 20px;
+}
+
+.title {
+  margin-top: 20px;
+  margin-left: 20px;
+  text-align: center;
+}
+
+h2 {
+  color: #fff;
+  margin: 0;
+  padding: 2px;
+  line-height: 30px;
+  height: 25px;
+  margin-bottom: 5px;
+}
+
+#currentUser {
+  margin-top: 75px;
+  text-align: center;
+  color: #04c8d6;
+}
+
+#notaDoMes {
+  text-align: center;
+}
