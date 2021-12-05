@@ -198,6 +198,26 @@ function salvarTeacherId(id){
   appearTag('calendario');
 }
 
+function salvarDiaEscolhido(id, dia){
+  let reference = "Students/" + id + '/' + ano + '/' + mes + '/' + dia + '/dia';
+  firebase.database().ref(reference).set(dia);
+}
+
+function salvarReview(id, dia, caso){
+  let reference = "Students/" + id + '/' + ano + '/' + mes + '/' + dia + '/review';
+  firebase.database().ref(reference).set(caso);
+}
+
+function salvarTeacherText(id, dia, text){
+  let reference = "Students/" + id + '/' + ano + '/' + mes + '/' + dia + '/teacherText';
+  firebase.database().ref(reference).set(text);
+}
+
+function salvarStudentText(id, dia, text){
+  let reference = "Students/" + id + '/' + ano + '/' + mes + '/' + dia + '/studentText';
+  firebase.database().ref(reference).set(text);
+}
+
 function checkStudentSavedData(id){
   let reference = "StudentsInfo/" + id + '/info';
   databaseRef.ref(reference).once('value', (snapshot) => {
