@@ -61,6 +61,8 @@ function checkStudentHasTeacher(id){
 
 function chooseTeacher(){
   appearTag('chooseTeacher');
+  hideTag('calendario');
+  hideTag('holder')
 }
 
 /*function saveAudioFromFile(){
@@ -150,6 +152,7 @@ function getStudentText(id, day){
     let text = snapshot.val().studentText;
     if(text != undefined){
       document.getElementById('studentText').innerHTML = snapshot.val().studentText;
+      appearTag('studentText');
     }
   });
 }
@@ -160,6 +163,7 @@ function getTeacherText(id, day){
     let text = snapshot.val().teacherText;
     if(text != undefined){
       document.getElementById('teacherText').innerHTML = snapshot.val().teacherText;
+      appearTag('teacherText');
     }
   });
 }
@@ -191,6 +195,7 @@ function salvarTeacherId(id){
   let reference = "StudentsInfo/" + userCurrent.uid + '/info/teacherId' ;
   firebase.database().ref(reference).set(id);
   hideTag("chooseTeacher");
+  appearTag('calendario');
 }
 
 function checkStudentSavedData(id){
