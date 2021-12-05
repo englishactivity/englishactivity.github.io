@@ -151,7 +151,6 @@ function tirarDiasAnteriores(uid) {
     var semana = historico[0].primeiraSemana();
     var diasPassados = 0;
     for (dias; dias <= diaAtual[1]; dias++) {
-        ++semana;
         if (semana> 7) {
             semana = 1;
         }
@@ -159,9 +158,14 @@ function tirarDiasAnteriores(uid) {
         if(semana != 1 && semana != 7){
             diasPassados += 1;
         }
+
+        ++semana;
     }
 
     var nota = (quantidadeDiasOcupados / diasPassados) * 10;
+    if(nota > 10){
+        nota = 10;
+    }
     document.getElementById("notaDoMes").innerHTML = "Nota Do Mês: " + Math.round(nota);
 
     if(userCurrent != null){
