@@ -8,6 +8,8 @@ function aparecerRecorder(){
         appearTag('getStudentText');
     }else{
         hideTag('getStudentText');
+        appearTag('studentText');
+        appearTag('teacherText');
     }
 }
 
@@ -108,7 +110,7 @@ function saveRecordedAudio(){
                 .createObjectURL(blob);
                 var storageRef = firebase.storage().ref(reference);
                 storageRef.put(blob);
-                text = document.getElementById('getStudentText').value;;
+                text = document.getElementById('getStudentText').value;
                 firebase.database().ref(reference).set({
                     'dia' : diaEscolhido,
                     'review' : false,
