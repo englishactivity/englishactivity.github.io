@@ -83,6 +83,8 @@ var diasMaxMes = [
       getStudentText(userCurrent.uid,d);
     }else{
       reference = "Students/" + currentStudent.id + '/' + ano + '/' + mes + '/' + d;
+      getTeacherText(userCurrent.uid,d);
+      getStudentText(userCurrent.uid,d);
     }
     firebase.storage().ref(reference).getDownloadURL().then(function(url) {
       var xhr = new XMLHttpRequest();
