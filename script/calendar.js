@@ -83,6 +83,8 @@ var diasMaxMes = [
       getStudentText(userCurrent.uid,d);
     }else{
       reference = "Students/" + currentStudent.id + '/' + ano + '/' + mes + '/' + d;
+      appearTag('teacherText');
+      appearTag('studentText');
       getTeacherText(currentStudent.id,d);
       getStudentText(currentStudent.id,d);
     }
