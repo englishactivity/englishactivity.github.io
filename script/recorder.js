@@ -111,11 +111,11 @@ function saveRecordedAudio(){
                 var storageRef = firebase.storage().ref(reference);
                 storageRef.put(blob);
                 text = document.getElementById('getStudentText').value;
-                firebase.database().ref(reference).set({
-                    'dia' : diaEscolhido,
-                    'review' : false,
-                    'studentText': text
-                });
+                salvarDiaEscolhido(userCurrent.uid, diaEscolhido);
+                salvarReview(userCurrent.uid, diaEscolhido, false);
+                if(text != null){
+                    salvarStudentText(userCurrent.uid, diaEscolhido, text);
+                }
                 studentHasNewAudio(userCurrent.uid);
                 alert("Audio Enviado com sucesso!");
             });    
@@ -129,12 +129,11 @@ function saveRecordedAudio(){
                 text = document.getElementById('getTeacherText').value;       
                 var storageRef = firebase.storage().ref(reference);
                 storageRef.put(blob);
-                reference = "Students/" + currentStudent.id + '/' + ano + '/' + mes + '/' + diaEscolhido;
-                firebase.database().ref(reference).set({
-                    'dia' : diaEscolhido,
-                    'review' : true,
-                    'teacherText': text
-                });
+                salvarDiaEscolhido(currentStudent.id, diaEscolhido);
+                salvarReview(currentStudent.id, diaEscolhido, true);
+                if(text != null){
+                    salvarTeacherText(currentStudent.id, diaEscolhido, text);
+                }
                 checkIfAllAudiosGotAnswered(currentStudent.id)
                 alert("Audio Enviado com sucesso!");
             });       
