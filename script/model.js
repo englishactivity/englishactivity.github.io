@@ -52,8 +52,13 @@ function colocarDiaOcupado(id){
 function checkStudentHasTeacher(id){
   let reference = "StudentsInfo/" + id + '/info';
   databaseRef.ref(reference).once('value', (snapshot) => {
-    let teacherId = snapshot.val().teacherId;
-    if(teacherId == undefined){
+    console.log(snapshot.val());
+    try{
+      let teacherId = snapshot.val().teacherId;
+      if(teacherId == undefined || teacherId == null){
+        chooseTeacher();
+      }
+    }catch(e){
       chooseTeacher();
     }
   });
@@ -221,11 +226,20 @@ function salvarStudentText(id, dia, text){
 function checkStudentSavedData(id){
   let reference = "StudentsInfo/" + id + '/info';
   databaseRef.ref(reference).once('value', (snapshot) => {
-    let studentId = snapshot.val().id;
-    if(studentId == undefined){
+    console.log(snapshot.val());
+    let studentId = null;
+    try{
+     studentId = snapshot.val().id;
+     if(studentId == undefined || studentId == null){
+      salvarIdUsuario(userCurrent.uid);
+      salvarNomeUsuario(userCurrent.uid);
+      }
+    }catch(e){
       salvarIdUsuario(userCurrent.uid);
       salvarNomeUsuario(userCurrent.uid);
     }
+
+
   });
 }
 
@@ -235,3 +249,4 @@ function atualizarDadosUsuario(){
     checkStudentHasTeacher(userCurrent.uid);
   }
 }
+
