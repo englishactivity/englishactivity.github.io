@@ -1,7 +1,6 @@
 #saveButton {
-  background-color: blue;
-  border-color: blue;
-  color: white;
+  background-color: var(--audioProfessor);
+  border-color: var(--audioProfessor);
   border-style: inset;
   padding: 3px;
   text-align: center;
@@ -16,7 +15,7 @@
 }
 
 #logout {
-  background-color: #4caf50;
+  background-color: var(--diaLivre);
   border: none;
   color: white;
   padding: 10px;

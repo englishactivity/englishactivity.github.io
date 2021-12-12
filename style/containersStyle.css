@@ -1,3 +1,11 @@
+:root {
+  --audioProfessor: #06bed6bb;
+  --audioEnviado: #555;
+  --diaLivre: #16c22d;
+  --receivedStudentAudio: crimson;
+  --setaVoltar: yellow;
+}
+
 body {
   width: 100%;
   margin: 0;
@@ -38,7 +46,7 @@ body {
 }
 
 .newAudio {
-  background-color: crimson;
+  background-color: var(--receivedStudentAudio);
 }
 
 .respostaDada {
@@ -46,7 +54,7 @@ body {
 }
 
 #voltar {
-  color: yellow;
+  color: var(--setaVoltar);
   margin-left: 1rem;
 }
 
@@ -57,20 +65,6 @@ body {
   top: 0;
   z-index: 10;
   width: 100%;
-}
-
-.popup {
-  z-index: 11;
-  position: fixed;
-  width: 70%;
-  height: 50%;
-  background-color: #2c0854;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  /* bring your own prefixes */
-  transform: translate(-50%, -50%);
-  color: white;
 }
 
 #recordingsAudios {

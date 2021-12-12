@@ -1,14 +1,7 @@
-#nomeDia {
-  text-align: center;
-  font-size: 5vw;
-  border-style: groove;
-  border-color: #fad31c;
-  border-width: 5px;
-  background-color: #fad31c;
-  max-width: 500px;
-  margin-left: 50%;
-  transform: translateX(-50%);
-  margin-bottom: 0rem;
+:root {
+  --audioProfessor: #05d3ee;
+  --audioEnviado: #555;
+  --diaLivre: #16c22d;
 }
 
 .clicavel:hover {
@@ -21,7 +14,7 @@ ul {
 }
 
 .certo {
-  background-color: #05a32f;
+  background-color: #33ff00;
 }
 
 .errado {
@@ -72,18 +65,18 @@ h1 {
 }
 
 .agendaLivre {
-  border-color: #05a32f;
-  background-color: #05a32f;
+  border-color: var(--diaLivre);
+  background-color: var(--diaLivre);
 }
 
 .agendaCheia {
-  border-color: #e61920;
-  background-color: #e61920;
+  border-color: var(--audioEnviado);
+  background-color: var(--audioEnviado);
 }
 
 .respostaDada {
-  border-color: blue;
-  background-color: blue;
+  border-color: var(--audioProfessor);
+  background-color: var(--audioProfessor);
 }
 
 #calendario {
