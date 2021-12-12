@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: englishactivity.github.io
+Token: 49991ec75e7195878f5b33569026dcd6911e3844b514392b54ac7488c212cacc
