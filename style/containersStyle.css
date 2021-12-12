@@ -5,7 +5,7 @@ body {
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 .getText {
@@ -75,4 +75,30 @@ body {
 
 #recordingsAudios {
   margin-top: 3rem;
+}
+
+@media screen and (max-width: 700px) {
+  #currentUser {
+    font-size: 1.5rem;
+  }
+
+  #notaDoMes {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  #notaDoMes {
+    font-size: 1rem;
+  }
+
+  #currentUser {
+    font-size: 1rem;
+  }
+}
+
+@media (pointer: none), (pointer: coarse) {
+  .dias {
+    font-size: 4rem;
+  }
 }
