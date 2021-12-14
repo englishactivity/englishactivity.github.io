@@ -1,6 +1,6 @@
 #saveButton {
-  background-color: var(----diaLivre);
-  border-color: var(----diaLivre);
+  background-color: var(--diaLivre);
+  border-color: var(--diaLivre);
   border-style: inset;
   padding: 3px;
   text-align: center;
