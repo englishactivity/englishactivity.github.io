@@ -1,15 +1,16 @@
 :root {
-  --audioProfessor: #06bed6bb;
+  --audioProfessor: #041C32;
   --audioEnviado: #555;
-  --diaLivre: #16c22d;
+  --diaLivre: #064663;
   --receivedStudentAudio: crimson;
   --setaVoltar: yellow;
+  --siteBackgroundColor: #041C32;
 }
 
 body {
   width: 100%;
   margin: 0;
-  background-color: #555;
+  background-color: var(--siteBackgroundColor);
 }
 
 .hide {
