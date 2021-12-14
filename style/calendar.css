@@ -1,9 +1,3 @@
-:root {
-  --audioProfessor: #05d3ee;
-  --audioEnviado: #555;
-  --diaLivre: #16c22d;
-}
-
 .clicavel:hover {
   cursor: pointer;
 }
