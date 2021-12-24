@@ -133,6 +133,9 @@ firebase.auth().onAuthStateChanged(user => {
     }
 })
 
+function userNotLogged(){
+  window.location.replace("index.html");
+}
 
 function checkIfAllAudiosGotAnswered(id){
   let reference = "Students/" + id + '/' + ano + '/' + mes;
