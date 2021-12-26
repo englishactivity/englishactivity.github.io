@@ -17,6 +17,17 @@ var currentStudent = null;
 var userCurrent;
 var storage = firebase.storage();
 var databaseRef = firebase.database();
+var onRecorder = isOnRecorder();
+
+function isOnRecorder(){
+  let result = true;
+  console.log(window.location.pathname);
+  //https://englishactivity.github.io/user.html
+  if( window.location.pathname === 'https://englishactivity.github.io/user.html'){
+    result = false
+  }
+  return result;
+}
 
 function hideTag(id){
   document.getElementById(id).classList.add('hide');
@@ -39,7 +50,11 @@ function colocarDiaOcupado(id){
         quantidadeDiasOcupados += 1;
       }
     });
-    criarCalendario(id);
+    if(onRecorder === false){
+      try{
+        criarCalendario(id);
+      }catch(e){   }
+    }
 });
 }
 
@@ -52,7 +67,6 @@ function colocarDiaOcupado(id){
 function checkStudentHasTeacher(id){
   let reference = "StudentsInfo/" + id + '/info';
   databaseRef.ref(reference).once('value', (snapshot) => {
-    console.log(snapshot.val());
     try{
       let teacherId = snapshot.val().teacherId;
       if(teacherId == undefined || teacherId == null){
@@ -118,14 +132,22 @@ firebase.auth().onAuthStateChanged(user => {
     if (user) {
       if(user.uid == "vOdPdTtvKah6PoMS8ymFQQuO0iw2" || user.uid == 'Q2PSldgC67YjOR20BhprT2yYf8H3'){
         teacherCurrent = user;
-        document.getElementById("calendario").classList.add("hide");
-        document.getElementById("studentList").classList.remove("hide");
-        getStudentsInfo();
+        if(onRecorder === false){
+          document.getElementById("calendario").classList.add("hide");
+          document.getElementById("studentList").classList.remove("hide");
+          getStudentsInfo();
+        } else{
+          aparecerRecorder();
+        }
       }else{
         userCurrent = user;
-        colocarDiaOcupado(userCurrent.uid);
-        atualizarDadosUsuario();
-        document.getElementById('currentUser').innerHTML = "Bem vindo " + user.displayName;
+        if(onRecorder === false){
+          colocarDiaOcupado(userCurrent.uid);
+          atualizarDadosUsuario();
+          document.getElementById('currentUser').innerHTML = "Bem vindo " + user.displayName;
+        }else{
+          aparecerRecorder();
+        }
       }
     }
     else {
@@ -133,8 +155,36 @@ firebase.auth().onAuthStateChanged(user => {
     }
 })
 
+function getAno(){
+  let ano = localStorage.getItem("ano");
+  if(ano == null){
+    dayNotChoosed();
+  }
+  return ano;
+}
+
+function getMes(){
+  let mes = localStorage.getItem("mes");
+  if(mes == null){
+    dayNotChoosed();
+  }
+  return mes;
+}
+
+function getDiaEscolhido(){
+  let dia = localStorage.getItem("diaEscolhido");
+  if(dia == null){
+    dayNotChoosed();
+  }
+  return dia;
+}
+
 function userNotLogged(){
   window.location.replace("index.html");
+}
+
+function dayNotChoosed(){
+  window.location.replace("user.html");
 }
 
 function checkIfAllAudiosGotAnswered(id){
@@ -229,7 +279,6 @@ function salvarStudentText(id, dia, text){
 function checkStudentSavedData(id){
   let reference = "StudentsInfo/" + id + '/info';
   databaseRef.ref(reference).once('value', (snapshot) => {
-    console.log(snapshot.val());
     let studentId = null;
     try{
      studentId = snapshot.val().id;
@@ -241,8 +290,6 @@ function checkStudentSavedData(id){
       salvarIdUsuario(userCurrent.uid);
       salvarNomeUsuario(userCurrent.uid);
     }
-
-
   });
 }
 

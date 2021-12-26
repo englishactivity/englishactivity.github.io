@@ -1,28 +1,68 @@
+
 function aparecerRecorder(){
     appearTag('holder');
-    hideTag('calendario');
-    if(userCurrent != null){
-        hideTag('getTeacherText');
-        hideTag('teacherText');
-        hideTag('studentText');
-        appearTag('getStudentText');
+    let checarResposta = localStorage.getItem('checarResposta');
+    if(checarResposta === 'false'){
+        if(userCurrent != null){
+            hideTag('getTeacherText');
+            hideTag('teacherText');
+            hideTag('studentText');
+            appearTag('getStudentText');
+        }else{
+            hideTag('getStudentText');
+            appearTag('studentText');
+            appearTag('teacherText');
+        }
     }else{
-        hideTag('getStudentText');
-        appearTag('studentText');
-        appearTag('teacherText');
+      let reference = "";
+      let ano = getAno();
+      let mes = getMes();
+      let dia = getDiaEscolhido();
+        if(userCurrent != null){
+            hideTag('recordButton');
+            hideTag('getStudentText');
+            appearTag('teacherText');
+            appearTag('studentText');
+            reference = "Students/" + userCurrent.uid + '/' + ano + '/' + mes + '/' + dia;
+            getTeacherText(userCurrent.uid,dia);
+            getStudentText(userCurrent.uid,dia);
+        }else{
+            reference = "Students/" + currentStudent.id + '/' + ano + '/' + mes + '/' + dia;
+            appearTag('teacherText');
+            appearTag('studentText');
+            getTeacherText(currentStudent.id,dia);
+            getStudentText(currentStudent.id,dia);
+        }
+        
+        firebase.storage().ref(reference).getDownloadURL().then(function(url) {
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = 'blob';
+            xhr.onload = function(event) {
+            var blob = xhr.response;
+            };
+  
+            let audio = document.getElementById('savedAudio');
+            audio.src = url;
+        }).catch(function(error) {
+          // Handle any errors
+        });
+  
+        reference = reference + 'r';
+    
+        firebase.storage().ref(reference).getDownloadURL().then(function(url) {
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = 'blob';
+            xhr.onload = function(event) {
+            var blob = xhr.response;
+        };
+    
+            let audio = document.getElementById('teacherSavedAudio');
+            audio.src = url;
+        }).catch(function(error) {
+        // Handle any errors
+        });
     }
-}
-
-function fecharRecorder(){
-    diaEscolhido = null;
-    appearTag("recordButton");
-    hideTag('holder');
-    appearTag('calendario');
-    document.getElementById('savedAudio').src = "";
-    document.getElementById('teacherSavedAudio').src = "";
-    document.getElementById('teacherText').innerHTML ="";
-    document.getElementById('studentText').innerHTML ="";
-}
+  }
 
 var myRecorder;
 jQuery(document).ready(function () {
@@ -100,14 +140,20 @@ jQuery(document).ready(function () {
 });
 
 function saveRecordedAudio(){
+    let ano = getAno();
+    let mes = getMes();
+    let diaEscolhido = getDiaEscolhido();
+
     if(diaEscolhido != null){
         let reference = "";
         let text = "";
         if(userCurrent != null){
-        reference = "Students/" + userCurrent.uid + '/' + ano + '/' + mes + '/' + diaEscolhido;
-        myRecorder.objects.recorder.exportWAV(function (blob) {
-            var url = (window.URL || window.webkitURL)
-                .createObjectURL(blob);
+        reference = "Students/" + userCurrent.uid + '/' 
+            + ano + '/' + mes + '/' + diaEscolhido;
+        try{
+            myRecorder.objects.recorder.exportWAV(function (blob) {
+                var url = (window.URL || window.webkitURL)
+                    .createObjectURL(blob);
                 var storageRef = firebase.storage().ref(reference);
                 storageRef.put(blob);
                 text = document.getElementById('getStudentText').value;
@@ -119,24 +165,34 @@ function saveRecordedAudio(){
                 studentHasNewAudio(userCurrent.uid);
                 alert("Audio Enviado com sucesso!");
             });    
+            }catch(e){
+                 alert("Você esqueceu de gravar o áudio");
+            }
         }else {
             let diaTeacher = "dr";
             diaTeacher = diaTeacher.replace('d', diaEscolhido);
-            reference = "Students/" + currentStudent.id + '/' + ano + '/' + mes + '/' + diaTeacher;
-            myRecorder.objects.recorder.exportWAV(function (blob) {
-            var url = (window.URL || window.webkitURL)
-                .createObjectURL(blob);
-                text = document.getElementById('getTeacherText').value;       
-                var storageRef = firebase.storage().ref(reference);
-                storageRef.put(blob);
-                salvarDiaEscolhido(currentStudent.id, diaEscolhido);
-                salvarReview(currentStudent.id, diaEscolhido, true);
-                if(text != null){
-                    salvarTeacherText(currentStudent.id, diaEscolhido, text);
-                }
-                checkIfAllAudiosGotAnswered(currentStudent.id)
-                alert("Audio Enviado com sucesso!");
-            });       
+            reference = "Students/" + currentStudent.id + '/'
+                 + ano + '/' + mes + '/' + diaTeacher;
+            try{
+                myRecorder.objects.recorder.exportWAV(function (blob) {
+                    var url = (window.URL || window.webkitURL)
+                        .createObjectURL(blob);
+                    text = document.getElementById('getTeacherText').value;       
+                    var storageRef = firebase.storage().ref(reference);
+                    storageRef.put(blob);
+                    salvarDiaEscolhido(currentStudent.id, diaEscolhido);
+                    salvarReview(currentStudent.id, diaEscolhido, true);
+                    if(text != null){
+                        salvarTeacherText(currentStudent.id, diaEscolhido, text);
+                    }
+                    checkIfAllAudiosGotAnswered(currentStudent.id)
+                    alert("Audio Enviado com sucesso!");
+                });       
+            }catch(e){
+                alert("Você esqueceu de gravar o áudio");
+            }
         }
+    }else{
+        dayNotChoosed();
     }
 }

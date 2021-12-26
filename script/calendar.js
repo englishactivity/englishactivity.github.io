@@ -69,53 +69,13 @@ var diasMaxMes = [
     31
 ];
 
-  function checarResposta(d){
-    diaEscolhido = d;
-    aparecerRecorder();
-    let reference = "";
-    if(userCurrent != null){
-      hideTag('recordButton');
-      hideTag('getStudentText');
-      appearTag('teacherText');
-      appearTag('studentText');
-      reference = "Students/" + userCurrent.uid + '/' + ano + '/' + mes + '/' + d;
-      getTeacherText(userCurrent.uid,d);
-      getStudentText(userCurrent.uid,d);
-    }else{
-      reference = "Students/" + currentStudent.id + '/' + ano + '/' + mes + '/' + d;
-      appearTag('teacherText');
-      appearTag('studentText');
-      getTeacherText(currentStudent.id,d);
-      getStudentText(currentStudent.id,d);
-    }
-    firebase.storage().ref(reference).getDownloadURL().then(function(url) {
-      var xhr = new XMLHttpRequest();
-      xhr.responseType = 'blob';
-      xhr.onload = function(event) {
-        var blob = xhr.response;
-      };
-
-      let audio = document.getElementById('savedAudio');
-      audio.src = url;
-    }).catch(function(error) {
-      // Handle any errors
-    });
-  
-    reference = reference + 'r';
-    
-    firebase.storage().ref(reference).getDownloadURL().then(function(url) {
-      var xhr = new XMLHttpRequest();
-      xhr.responseType = 'blob';
-      xhr.onload = function(event) {
-        var blob = xhr.response;
-      };
-    
-      let audio = document.getElementById('teacherSavedAudio');
-      audio.src = url;
-    }).catch(function(error) {
-      // Handle any errors
-    });
-    
+  function checarResposta(dia){
+    localStorage.setItem('diaEscolhido', dia);
+    localStorage.setItem('checarResposta', true);
+    localStorage.setItem('ano', ano);
+    localStorage.setItem('mes', mes);
+ //   aparecerRecorder();
+    window.location.replace("recorder.html");   
   }
 
 /********************************************************
@@ -327,9 +287,12 @@ function apagarCalendario() {
  * do dia escolhido pelo cliente.
  **********************************************/
  function diaClick(dia, semana) {
-
-    diaEscolhido = dia;
-    aparecerRecorder();
+    localStorage.setItem('diaEscolhido', dia);
+    localStorage.setItem('checarResposta', false);
+    localStorage.setItem('ano', ano);
+    localStorage.setItem('mes', mes);
+    //aparecerRecorder();
+    window.location.replace("recorder.html");
 }
 
 /********************************************************
