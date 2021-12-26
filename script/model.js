@@ -21,8 +21,6 @@ var onRecorder = isOnRecorder();
 
 function isOnRecorder(){
   let result = true;
-  console.log(window.location.pathname);
-  //https://englishactivity.github.io/user.html
   if( window.location.pathname === '/user.html'){
     result = false
   }
