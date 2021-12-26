@@ -23,15 +23,15 @@ function aparecerRecorder(){
             hideTag('getStudentText');
             appearTag('teacherText');
             appearTag('studentText');
-            reference = "Students/" + userCurrent.uid + '/' + ano + '/' + mes + '/' + dia;
-            getTeacherText(userCurrent.uid,dia);
-            getStudentText(userCurrent.uid,dia);
+            reference = "Students/" + getCurrentStudentId() + '/' + ano + '/' + mes + '/' + dia;
+            getTeacherText(getCurrentStudentId(),dia);
+            getStudentText(getCurrentStudentId(),dia);
         }else{
-            reference = "Students/" + currentStudent.id + '/' + ano + '/' + mes + '/' + dia;
+            reference = "Students/" + getCurrentStudentId() + '/' + ano + '/' + mes + '/' + dia;
             appearTag('teacherText');
             appearTag('studentText');
-            getTeacherText(currentStudent.id,dia);
-            getStudentText(currentStudent.id,dia);
+            getTeacherText(getCurrentStudentId(),dia);
+            getStudentText(getCurrentStudentId(),dia);
         }
         
         firebase.storage().ref(reference).getDownloadURL().then(function(url) {
@@ -171,7 +171,7 @@ function saveRecordedAudio(){
         }else {
             let diaTeacher = "dr";
             diaTeacher = diaTeacher.replace('d', diaEscolhido);
-            reference = "Students/" + currentStudent.id + '/'
+            reference = "Students/" + getCurrentStudentId() + '/'
                  + ano + '/' + mes + '/' + diaTeacher;
             try{
                 myRecorder.objects.recorder.exportWAV(function (blob) {
@@ -180,12 +180,12 @@ function saveRecordedAudio(){
                     text = document.getElementById('getTeacherText').value;       
                     var storageRef = firebase.storage().ref(reference);
                     storageRef.put(blob);
-                    salvarDiaEscolhido(currentStudent.id, diaEscolhido);
-                    salvarReview(currentStudent.id, diaEscolhido, true);
+                    salvarDiaEscolhido(getCurrentStudentId(), diaEscolhido);
+                    salvarReview(getCurrentStudentId(), diaEscolhido, true);
                     if(text != null){
-                        salvarTeacherText(currentStudent.id, diaEscolhido, text);
+                        salvarTeacherText(getCurrentStudentId(), diaEscolhido, text);
                     }
-                    checkIfAllAudiosGotAnswered(currentStudent.id)
+                    checkIfAllAudiosGotAnswered(getCurrentStudentId());
                     alert("Audio Enviado com sucesso!");
                 });       
             }catch(e){

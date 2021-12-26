@@ -111,7 +111,12 @@ function createStudentCalendar(id){
   diaOcupado = {};
   quantidadeDiasOcupados = 0;
   currentStudent = studentsList[id];
+  localStorage.setItem('currentStudentId', id);
   colocarDiaOcupado(id);
+}
+
+function getCurrentStudentId(){
+  return localStorage.getItem('currentStudentId');
 }
 
 function getStudentsInfo(){
