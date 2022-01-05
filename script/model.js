@@ -144,6 +144,7 @@ firebase.auth().onAuthStateChanged(user => {
         }
       }else{
         userCurrent = user;
+        localStorage.setItem('currentStudentId', user.uid);
         if(onRecorder === false){
           colocarDiaOcupado(userCurrent.uid);
           atualizarDadosUsuario();
