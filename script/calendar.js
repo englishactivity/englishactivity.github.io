@@ -76,9 +76,11 @@ var diasMaxMes = [
     localStorage.setItem('mes', mes);
     if(isUserATeacher(teacherCurrent.uid)){
         aparecerRecorder();
-    }else{
-        window.location.replace("recorder.html");
+        return;
     }
+    
+    window.location.replace("recorder.html");
+
   }
 
 /********************************************************
@@ -297,9 +299,11 @@ function apagarCalendario() {
     //aparecerRecorder();
     if(isUserATeacher(teacherCurrent.uid)){
         aparecerRecorder();
-    }else{
-        window.location.replace("recorder.html");
+        return;
     }
+    
+    window.location.replace("recorder.html");
+    
 }
 
 /********************************************************
