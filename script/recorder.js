@@ -2,6 +2,12 @@
 function aparecerRecorder(){
     appearTag('holder');
     let checarResposta = localStorage.getItem('checarResposta');
+    if(isUserATeacher(teacherCurrent.uid)){
+        hideTag('calendario');
+        appearTag('holder');
+        hideTag('studentList');
+    }
+    
     if(checarResposta === 'false'){
         if(userCurrent != null){
             hideTag('getTeacherText');
