@@ -19,11 +19,13 @@
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+    <script src="https://markjivko.com/dist/recorder.js"></script>
       
     <script src="script/firebase.js"></script>
     <script src="script/students.js"></script>
     <script src="script/model.js"></script>
     <script src="script/calendar.js"></script>
+    <script src="script/recorder.js"></script>
     
 
     <div id="menu">
@@ -35,7 +37,7 @@
     <div id="chooseTeacher" class="popup hide">
       <h2 class="title">Escolha o seu atual professor(a) ao clicar em seu nome</h2>
       <button class="teacherButton clicavel" onclick="salvarTeacherId('vOdPdTtvKah6PoMS8ymFQQuO0iw2')">Everton Alves</button>
-      <button class="teacherButton clicavel" onclick="salvarTeacherId('Q2PSldgC67YjOR20BhprT2yYf8H3')">Wêmilly</button>
+      <button class="teacherButton clicavel" onclick="salvarTeacherId('Q2PSldgC67YjOR20BhprT2yYf8H3')">Wêmilly Santos</button>
     </div>
 
     <div id="studentList" class="hide"> </div>
@@ -120,5 +122,27 @@
 	       <div class="legenda"> <div id="legendaProfessorRespondeu" class="caixa"></div> Professor Respondeu o áudio</div>
 	    </div>
   </div>
+
+    <div class="holder hide" id="holder">
+      <i class="fa fa-arrow-left fa-2x clicavel fechado" id="voltar" onClick="sairDoRecorder()"></i>
+      <div data-role="controls" id="recordButton">
+        <button>Record</button>
+      </div>
+      <div data-role="recordings" id="recordingsAudios"></div>
+      <div> 
+        <p class="texto">Seu Audio:</p>
+        <audio controls id="savedAudio" src=""> </audio>
+        <p class="texto">Escreva sua frase:</p>
+        <textarea id="getStudentText" class="getText"></textarea>
+        <p id="studentText" class="frase"></p>
+        <p class="texto">Audio do Professor:</p>
+        <audio controls id="teacherSavedAudio" src=""> </audio>
+        <p class="texto">Frase do Professor:</p>
+        <textarea id="getTeacherText" class="getText"></textarea>
+        <p id="teacherText" class="frase"></p>
+      </div>
+      <button onclick="saveRecordedAudio()" id="saveButton" class="clicavel">SAVE AUDIO</button>
+    </div>
+
   </body>
 </html>
