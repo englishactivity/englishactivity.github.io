@@ -152,17 +152,20 @@ firebase.auth().onAuthStateChanged(user => {
         } else{
           aparecerRecorder();
         }*/
-      }else{
-        userCurrent = user;
-        localStorage.setItem('currentStudentId', user.uid);
-        if(onRecorder === false){
-          colocarDiaOcupado(userCurrent.uid);
-          atualizarDadosUsuario();
-          document.getElementById('currentUser').innerHTML = "Bem vindo " + user.displayName;
-        }else{
-          aparecerRecorder();
-        }
+        return;
       }
+      
+      
+      userCurrent = user;
+      localStorage.setItem('currentStudentId', user.uid);
+      if(onRecorder === false){
+        colocarDiaOcupado(userCurrent.uid);
+        atualizarDadosUsuario();
+        document.getElementById('currentUser').innerHTML = "Bem vindo " + user.displayName;
+      }else{
+        aparecerRecorder();
+      }
+      
     }
     else {
         userNotLogged();
