@@ -13,6 +13,7 @@ var diaOcupado = {};
 var quantidadeDiasOcupados = 0;
 var studentsList ={};
 var currentStudent = null;
+var teacherCurrent = null;
 
 var userCurrent;
 var storage = firebase.storage();
@@ -20,9 +21,9 @@ var databaseRef = firebase.database();
 var onRecorder = isOnRecorder();
 
 function isOnRecorder(){
-  let result = true;
-  if( window.location.pathname === '/user.html'){
-    result = false
+  let result = false;
+  if( window.location.pathname === '/recorder.html'){
+    result = true;
   }
   return result;
 }
@@ -48,7 +49,7 @@ function colocarDiaOcupado(id){
         quantidadeDiasOcupados += 1;
       }
     });
-    if(onRecorder === false || isUserATeacher(teacherCurrent.uid)){
+    if(onRecorder === false || isUserATeacher(teacherCurrent)){
       try{
         criarCalendario(id);
       }catch(e){   }
@@ -131,13 +132,16 @@ function getStudentsInfo(){
   });
 }
 
-function isUserATeacher(id){
-  return (id == "vOdPdTtvKah6PoMS8ymFQQuO0iw2" || id == 'Q2PSldgC67YjOR20BhprT2yYf8H3');
+function isUserATeacher(teacher){
+  if(teacher === null){
+    return false;
+  }
+  return (teacher.uid == "vOdPdTtvKah6PoMS8ymFQQuO0iw2" || teacher.uid == 'Q2PSldgC67YjOR20BhprT2yYf8H3');
 }
 
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
-      if(isUserATeacher(user.uid)){
+      if(isUserATeacher(user)){
         teacherCurrent = user;
         getStudentsInfo();
         //document.getElementById("calendario").classList.add("hide");
@@ -158,12 +162,12 @@ firebase.auth().onAuthStateChanged(user => {
       
       userCurrent = user;
       localStorage.setItem('currentStudentId', user.uid);
-      if(onRecorder === false){
+      if(isOnRecorder()){
+        aparecerRecorder();
+      }else{
         colocarDiaOcupado(userCurrent.uid);
         atualizarDadosUsuario();
         document.getElementById('currentUser').innerHTML = "Bem vindo " + user.displayName;
-      }else{
-        aparecerRecorder();
       }
       
     }
@@ -205,7 +209,7 @@ function dayNotChoosed(){
 }
 
 function sairDoRecorder(){
-  if(isUserATeacher(teacherCurrent.uid)){
+  if(isUserATeacher(teacherCurrent)){
     hideTag('holder');
     appearTag('studentList');
     appearTag('calendario');
