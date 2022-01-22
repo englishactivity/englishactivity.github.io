@@ -2,7 +2,7 @@
 function aparecerRecorder(){
     appearTag('holder');
     let checarResposta = localStorage.getItem('checarResposta');
-    if(isUserATeacher(teacherCurrent.uid)){
+    if(isUserATeacher(teacherCurrent)){
         hideTag('calendario');
         appearTag('holder');
         hideTag('studentList');
