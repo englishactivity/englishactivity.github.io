@@ -48,7 +48,7 @@ function colocarDiaOcupado(id){
         quantidadeDiasOcupados += 1;
       }
     });
-    if(onRecorder === false){
+    if(onRecorder === false || isUserATeacher(teacherCurrent.uid)){
       try{
         criarCalendario(id);
       }catch(e){   }
@@ -131,17 +131,27 @@ function getStudentsInfo(){
   });
 }
 
+function isUserATeacher(id){
+  return (id == "vOdPdTtvKah6PoMS8ymFQQuO0iw2" || id == 'Q2PSldgC67YjOR20BhprT2yYf8H3');
+}
+
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
-      if(user.uid == "vOdPdTtvKah6PoMS8ymFQQuO0iw2" || user.uid == 'Q2PSldgC67YjOR20BhprT2yYf8H3'){
+      if(isUserATeacher(user.uid)){
         teacherCurrent = user;
-        if(onRecorder === false){
+        getStudentsInfo();
+        //document.getElementById("calendario").classList.add("hide");
+        //document.getElementById("studentList").classList.remove("hide");
+        hideTag("calendario");
+        hideTag('holder');
+        appearTag('studentList');
+        /*if(onRecorder === false){
           document.getElementById("calendario").classList.add("hide");
           document.getElementById("studentList").classList.remove("hide");
           getStudentsInfo();
         } else{
           aparecerRecorder();
-        }
+        }*/
       }else{
         userCurrent = user;
         localStorage.setItem('currentStudentId', user.uid);
@@ -189,6 +199,18 @@ function userNotLogged(){
 
 function dayNotChoosed(){
   window.location.replace("user.html");
+}
+
+function sairDoRecorder(){
+  if(isUserATeacher(teacherCurrent.uid)){
+    hideTag('holder');
+    appearTag('studentList');
+    appearTag('calendario');
+    document.getElementById("savedAudio").src = "";
+    document.getElementById("teacherSavedAudio").src = "";
+  }else{
+    window.location.replace("user.html");
+  } 
 }
 
 function checkIfAllAudiosGotAnswered(id){
