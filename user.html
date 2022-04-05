@@ -31,7 +31,10 @@
     <div id="menu">
       <button onclick="logout()" id="logout" class="clicavel">Logout
          <i class="fa fa-sign-out clicavel"></i>
-        </button>
+      </button>
+      <a href="notas.html" class="clicavel menuButton" >Ver Minhas Notas</a>
+      <a href="user.html" class="clicavel menuButton" >Calendario</a>
+      <button onclick="hideAppearGrades()" id="esconderNotasButton" class="clicavel menuButton hide">Esconder/Aparecer Notas</button>
     </div>
 
     <div id="chooseTeacher" class="popup hide">
@@ -43,6 +46,11 @@
     <div id="studentList" class="hide"> </div>
     <h2 id="currentUser"></h2>
     <h2 id="notaDoMes"></h2>
+    <div id="gradeList" class="hide">
+      <p class="frase">
+        Carregando...
+      </p>
+  </div>
     <div class="body">
     
     <div id="calendario" class="hide">
@@ -143,6 +151,10 @@
       </div>
       <button onclick="saveRecordedAudio()" id="saveButton" class="clicavel">SAVE AUDIO</button>
     </div>
-
+    <div id="gradeList" class="hide">
+      <p class="frase">
+        Carregando...
+      </p>
+  </div>
   </body>
 </html>
