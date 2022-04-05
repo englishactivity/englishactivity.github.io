@@ -1,10 +1,10 @@
 :root {
-  --audioProfessor: #041C32;
+  --audioProfessor: #041c32;
   --audioEnviado: #555;
   --diaLivre: #064663;
   --receivedStudentAudio: crimson;
   --setaVoltar: yellow;
-  --siteBackgroundColor: #041C32;
+  --siteBackgroundColor: #041c32;
 }
 
 body {
@@ -13,7 +13,7 @@ body {
   background-color: var(--siteBackgroundColor);
 }
 
-.caixa{
+.caixa {
   height: 20px;
   width: 20px;
   display: inline-block;
@@ -22,23 +22,23 @@ body {
   margin-right: 6px;
 }
 
-#legendaProfessorRespondeu{
-   background-color: var(--audioProfessor);
+#legendaProfessorRespondeu {
+  background-color: var(--audioProfessor);
 }
 
-#legendaNaoMandarAudio{
-   background-color: var(--audioEnviado);
+#legendaNaoMandarAudio {
+  background-color: var(--audioEnviado);
 }
 
-#legendaMandarAudio{
-   background-color: var(--diaLivre);
+#legendaMandarAudio {
+  background-color: var(--diaLivre);
 }
 
-.legendaContainer{
-   display: flex;
-   width: 330px;
-   margin-left: auto;
-   margin-right: auto;
+.legendaContainer {
+  display: flex;
+  width: 330px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hide {
@@ -64,6 +64,18 @@ body {
   text-decoration: none;
   font-size: 2rem;
   margin-left: 5px;
+}
+
+#gradeList{
+  padding: 3px;
+  text-align: justify;
+  text-decoration: none;
+  font-size: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1rem;
+  background-color: var(--audioEnviado);
+  width: 90%;
 }
 
 #studentList {
