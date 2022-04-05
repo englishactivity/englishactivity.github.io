@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>English Activity</title>
+    <link href="style/containersStyle.css" rel="stylesheet" type="text/css" />
+    <link href="style/style.css" rel="stylesheet" type="text/css" />
+    <link href="style/calendar.css" rel="stylesheet" type="text/css" />
+    <link href="style/text.css" rel="stylesheet" type="text/css" />
+    <link href="style/button.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/ico" href="flag.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+    <!--<script src="https://markjivko.com/dist/recorder.js"></script>-->
+      
+    <script src="script/firebase.js"></script>
+    <script src="script/students.js"></script>
+    <script src="script/grades.js"></script>
+    <script src="script/model.js"></script>
+    <script src="script/calendar.js"></script>
+    <script src="script/recorder.js"></script>
+    
+
+    <div id="menu">
+      <button onclick="logout()" id="logout" class="clicavel">Logout
+         <i class="fa fa-sign-out clicavel"></i>
+      </button>
+      <a href="notas.html" class="clicavel menuButton" >Ver Minhas Notas</a>
+      <a href="user.html" class="clicavel menuButton" >Calendario</a>
+      <button onclick="hideAppearGrades()" id="esconderNotasButton" class="clicavel menuButton hide">Esconder/Aparecer Notas</button>
+    </div>
+    <h2 id="currentUser"></h2>
+    <div id="gradeList">
+        <p class="frase">
+          Carregando...
+        </p>
+    </div>
+  </body>
+</html>
