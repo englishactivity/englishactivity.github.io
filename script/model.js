@@ -1,3 +1,16 @@
+class Grades{
+  constructor(ano, mes, grade){
+    this.ano = ano;
+    this.mes = mes;
+    this.grade = grade;
+  }
+
+  getAsText(){
+    let text = "Nota de " + meses[this.mes] + "/" + this.ano + ": " + this.grade;
+    return text;
+  }
+}
+
 var horaEscolhida = 0;
 var diaEscolhido = 0;
 var semanaEscolhida = 0;
@@ -14,7 +27,7 @@ var quantidadeDiasOcupados = 0;
 var studentsList ={};
 var currentStudent = null;
 var teacherCurrent = null;
-
+var gradesList = [];
 var userCurrent;
 var storage = firebase.storage();
 var databaseRef = firebase.database();
@@ -23,6 +36,14 @@ var onRecorder = isOnRecorder();
 function isOnRecorder(){
   let result = false;
   if( window.location.pathname === '/recorder.html'){
+    result = true;
+  }
+  return result;
+}
+
+function isOnGradeList(){
+  let result = false;
+  if( window.location.pathname === '/notas.html'){
     result = true;
   }
   return result;
@@ -111,6 +132,9 @@ function createStudentCalendar(id){
   quantidadeDiasOcupados = 0;
   currentStudent = studentsList[id];
   localStorage.setItem('currentStudentId', id);
+  document.getElementById("gradeList").innerHTML = "Carregando...";
+  gradesList = [];
+  getStudentGradeList(id);
   colocarDiaOcupado(id);
 }
 
@@ -139,6 +163,15 @@ function isUserATeacher(teacher){
   return (teacher.uid == "vOdPdTtvKah6PoMS8ymFQQuO0iw2" || teacher.uid == 'Q2PSldgC67YjOR20BhprT2yYf8H3');
 }
 
+function hideAppearGrades(){
+  const div = document.getElementById("gradeList");
+  if(div.classList.contains('hide')){
+    appearTag("gradeList");
+  }else{
+    hideTag("gradeList");
+  }
+}
+
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
       if(isUserATeacher(user)){
@@ -149,6 +182,9 @@ firebase.auth().onAuthStateChanged(user => {
         hideTag("calendario");
         hideTag('holder');
         appearTag('studentList');
+        appearTag('gradeList');
+        appearTag('esconderNotasButton');
+        getStudentGradeList(getCurrentStudentId());
         /*if(onRecorder === false){
           document.getElementById("calendario").classList.add("hide");
           document.getElementById("studentList").classList.remove("hide");
@@ -164,7 +200,10 @@ firebase.auth().onAuthStateChanged(user => {
       localStorage.setItem('currentStudentId', user.uid);
       if(isOnRecorder()){
         aparecerRecorder();
-      }else{
+      } else if(isOnGradeList()){
+        getStudentGradeList(userCurrent.uid);
+      }
+      else{
         colocarDiaOcupado(userCurrent.uid);
         atualizarDadosUsuario();
         document.getElementById('currentUser').innerHTML = "Bem vindo " + user.displayName;
@@ -246,6 +285,39 @@ function getStudentText(id, day){
       appearTag('studentText');
     }
   });
+}
+
+function getStudentGradeList(id){
+  let reference = "Students/" + id + '/' +  "@" + '/$';
+  //        diaClick = diaClick.replace("9", dias);
+  for(let a = 1; a >= 0; a--){ 
+    for(let i = 0; i< 12; i++){
+      reference = reference.replace("@", ano - a);   
+      reference = reference.replace("$",i);
+      databaseRef.ref(reference).once('value', (snapshot) => {
+        let nota = (snapshot.val().nota.nota).toFixed(2);
+        gradesList.push(new Grades((ano - a), i, nota));
+        createStudentGradeList();
+      /*if(text != undefined){
+        document.getElementById('studentText').innerHTML = snapshot.val().studentText;
+        appearTag('studentText');
+      }*/
+      });
+       reference = "Students/" + id + '/' +  "@" + '/$';
+    }
+    reference = "Students/" + id + '/' +  "@" + '/$';
+  }
+  console.log(gradesList);
+}
+
+function createStudentGradeList(){
+    let list = ""; 
+  for(let i = 0; i < gradesList.length; i++){
+    list += "<p class='frase'>";
+    list += gradesList[i].getAsText();
+    list += "</p>";
+  }
+  document.getElementById('gradeList').innerHTML = list;
 }
 
 function getTeacherText(id, day){
